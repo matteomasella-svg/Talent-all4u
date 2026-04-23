@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All4U | Candidatura Professionale</title>
+  <style>
+    :root {
+      --bg: #08111d;
+      --panel: rgba(13, 27, 42, 0.96);
+      --panel-2: #0f2238;
+      --line: #1f3b5c;
+      --text: #edf4ff;
+      --muted: #9ab0c9;
+      --accent: #56c2ff;
+      --accent-2: #2f89ff;
+      --ok: #1fc98a;
+      --danger: #ff5d79;
+      --shadow: 0 14px 34px rgba(0, 0, 0, 0.28);
+      --radius-xl: 24px;
+      --radius-lg: 18px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: radial-gradient(circle at top, #10233a 0%, #08111d 55%);
+      color: var(--text);
+      padding-bottom: 50px;
+    }
+
+    #overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(8, 17, 29, 0.98);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .modal-content {
+      max-width: 920px;
+      width: 100%;
+      background: var(--panel);
+      border: 1px solid var(--accent);
+      border-radius: var(--radius-xl);
+      padding: 36px;
+      box-shadow: var(--shadow);
+    }
+
+    .modal-content h2 {
+      color: var(--accent);
+      margin-top: 0;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    .modal-content p {
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .modal-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+      margin: 24px 0;
+    }
+
+    .modal-box {
+      background: #0a1625;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 18px;
+    }
+
+    .modal-box h4 {
+      margin: 0 0 10px;
+      color: var(--accent);
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .modal-box ul {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .page {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 28px 20px;
+    }
+
+    .hero, .panel, .sidebar-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+    }
+
+    .hero {
+      padding: 26px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .hero-left h1 {
+      margin: 0 0 8px;
+      font-size: 34px;
+      letter-spacing: -0.03em;
+    }
+
+    .hero-left p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 760px;
+      line-height: 1.6;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .sidebar-card {
+      padding: 20px;
+      position: sticky;
+      top: 20px;
+    }
+
+    .sidebar-card h3 {
+      margin-top: 0;
+      color: var(--accent);
+      font-size: 15px;
+      text-transform: uppercase;
+    }
+
+    .sidebar-card .side-item {
+      margin-bottom: 14px;
+      font-size: 13px;
+      line-height: 1.45;
+      color: var(--muted);
+    }
+
+    .sidebar-card .side-item strong {
+      display: block;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .nav {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+
+    .nav a {
+      text-decoration: none;
+      color: var(--text);
+      padding: 12px;
+      background: #0a1625;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 14px;
+      border: 1px solid var(--line);
+      transition: 0.2s;
+    }
+
+    .nav a:hover {
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    .panel {
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      margin: 0 0 15px;
+      font-size: 24px;
+      color: var(--accent);
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 10px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    input, select {
+      width: 100%;
+      background: #0a1625;
+      color: var(--text);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 13px;
+      outline: none;
+      font-size: 14px;
+    }
+
+    input[readonly] {
+      background: #162435;
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+
+    .lingua-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: 1px solid var(--line);
+      background: var(--panel-2);
+      color: var(--text);
+      border-radius: 12px;
+      padding: 13px 20px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .btn.primary {
+      background: linear-gradient(90deg, var(--accent-2), var(--accent));
+      border: none;
+      color: white;
+      width: 100%;
+      margin-top: 20px;
+      font-size: 1.05rem;
+    }
+
+    .btn.small {
+      padding: 10px 12px;
+      font-size: 13px;
+    }
+
+    .btn.remove {
+      background: var(--danger);
+      border: none;
+      color: white;
+      padding: 0 12px;
+    }
+
+    .msg {
+      margin-top: 16px;
+      padding: 14px;
+      border-radius: 12px;
+      display: none;
+      text-align: center;
+      font-weight: 700;
+    }
+
+    .msg.ok {
+      background: rgba(31, 201, 138, 0.1);
+      color: #cffff0;
+      border: 1px solid var(--ok);
+      display: block;
+    }
+
+    .msg.err {
+      background: rgba(255, 93, 121, 0.12);
+      color: #ffd8df;
+      border: 1px solid var(--danger);
+      display: block;
+    }
+
+    .msg.loading {
+      background: rgba(86, 194, 255, 0.08);
+      color: #d7efff;
+      border: 1px solid rgba(86, 194, 255, 0.35);
+      display: block;
+    }
+
+    .job-preview {
+      display: none;
+      margin-top: 20px;
+      padding: 18px;
+      background: #0a1625;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+    }
+
+    .job-preview h3 {
+      color: var(--accent);
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+
+    .job-preview .block {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--line);
+      white-space: pre-wrap;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .job-preview .block:first-of-type {
+      margin-top: 0;
+      padding-top: 0;
+      border-top: 0;
+    }
+
+    .att-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 10px;
+      background: #0a1625;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px;
+    }
+
+    .att-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    .privacy-box {
+      margin-top: 20px;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.6;
+      border: 1px solid var(--line);
+      padding: 15px;
+      border-radius: 10px;
+      background: #0a1625;
+    }
+
+    @media (max-width: 980px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar-card {
+        position: static;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+      .att-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="overlay">
+    <div class="modal-content">
+      <h2>Linee guida candidatura</h2>
+      <p>
+        La tua candidatura verrà valutata sulla base della completezza dei dati inseriti,
+        della coerenza con il ruolo selezionato e della presenza dei materiali richiesti.
+      </p>
+
+      <div class="modal-grid">
+        <div class="modal-box">
+          <h4>CV consigliato</h4>
+          <ul>
+            <li>Formato preferibilmente europeo o equivalente</li>
+            <li>Informazioni personali, esperienze, formazione, lingue</li>
+            <li>Patente, competenze, eventuali certificazioni</li>
+          </ul>
+        </div>
+        <div class="modal-box">
+          <h4>Foto primo piano</h4>
+          <ul>
+            <li>Viso ben visibile</li>
+            <li>Luce naturale o uniforme</li>
+            <li>No filtri marcati, no occhiali da sole</li>
+            <li>Sfondo pulito o neutro</li>
+          </ul>
+        </div>
+        <div class="modal-box">
+          <h4>Foto figura intera</h4>
+          <ul>
+            <li>Persona interamente visibile</li>
+            <li>Postura naturale</li>
+            <li>Abbigliamento semplice e ordinato</li>
+            <li>Sfondo pulito</li>
+          </ul>
+        </div>
+      </div>
+
+      <button class="btn primary" style="width:auto; padding:14px 34px;" onclick="closeOverlay()">Accetto e procedo</button>
+    </div>
+  </div>
+
+  <div class="page">
+    <section class="hero">
+      <div class="hero-left">
+        <h1>Candidatura Professionale</h1>
+        <p>Seleziona il job post, leggi i dettagli dell’opportunità e completa la tua candidatura con tutti i materiali richiesti.</p>
+      </div>
+    </section>
+
+    <div class="layout">
+      <aside class="sidebar-card">
+        <nav class="nav">
+          <a href="#job">1. Posizione</a>
+          <a href="#dati">2. Anagrafica</a>
+          <a href="#profilo">3. Profilo & Formazione</a>
+          <a href="#esperienze">4. Esperienze lavorative</a>
+          <a href="#lingue">5. Lingue</a>
+          <a href="#documenti">6. Documenti</a>
+        </nav>
+
+        <h3>Linee guida rapide</h3>
+        <div class="side-item">
+          <strong>CV</strong>
+          Formato chiaro con esperienze, formazione, lingue, patente e certificazioni.
+        </div>
+        <div class="side-item">
+          <strong>Foto viso</strong>
+          Luce naturale, viso ben visibile, no filtri marcati.
+        </div>
+        <div class="side-item">
+          <strong>Foto figura intera</strong>
+          Figura completa visibile, sfondo pulito, abbigliamento ordinato.
+        </div>
+        <div class="side-item">
+          <strong>Campi obbligatori</strong>
+          Tutti i campi con * devono essere compilati per inviare correttamente la candidatura.
+        </div>
+      </aside>
+
+      <main>
+        <form id="candidateForm">
+          <section class="panel" id="job">
+            <h2 class="section-title">Posizione aperta</h2>
+            <div class="field full">
+              <label for="jobSelect">Scegli il ruolo *</label>
+              <select id="jobSelect" required onchange="updatePreview()">
+                <option value="">Caricamento...</option>
+              </select>
+            </div>
+
+            <div id="jobPrev" class="job-preview">
+              <h3 id="prevTitle"></h3>
+              <div id="prevDesc" class="block"></div>
+              <div id="prevReq" class="block"></div>
+              <div id="prevDocs" class="block"></div>
+            </div>
+          </section>
+
+          <section class="panel" id="dati">
+            <h2 class="section-title">Anagrafica</h2>
+            <div class="grid">
+              <div class="field"><label>Nome *</label><input type="text" id="nome" required></div>
+              <div class="field"><label>Cognome *</label><input type="text" id="cognome" required></div>
+              <div class="field"><label>Data di nascita *</label><input type="date" id="dataNascita" required onchange="calcAge()"></div>
+              <div class="field"><label>Età</label><input type="number" id="eta" readonly></div>
+              <div class="field"><label>Email *</label><input type="email" id="email" required></div>
+              <div class="field"><label>Telefono *</label><input type="tel" id="telefono" required></div>
+              <div class="field full"><label>Città di residenza *</label><input type="text" id="citta" required></div>
+            </div>
+          </section>
+
+          <section class="panel" id="profilo">
+            <h2 class="section-title">Profilo & Formazione</h2>
+            <div class="grid">
+              <div class="field"><label>Altezza (cm) *</label><input type="number" id="altezza" required></div>
+              <div class="field">
+                <label>Titolo di studio *</label>
+                <select id="titolo_studio" required>
+                  <option value="Diploma Superiore">Diploma Superiore</option>
+                  <option value="Laurea Triennale">Laurea Triennale</option>
+                  <option value="Laurea Magistrale">Laurea Magistrale</option>
+                  <option value="Licenza Media">Licenza Media</option>
+                </select>
+              </div>
+              <div class="field">
+                <label>Regime fiscale *</label>
+                <select id="regime_fiscale" required>
+                  <option value="Ritenuta d'acconto">Ritenuta d'acconto</option>
+                  <option value="Partita IVA">Partita IVA</option>
+                </select>
+              </div>
+              <div class="field">
+                <label>Automunito/a *</label>
+                <select id="automunito" required>
+                  <option value="No">No</option>
+                  <option value="Sì">Sì</option>
+                </select>
+              </div>
+              <div class="field">
+                <label>Patente *</label>
+                <select id="patente" required>
+                  <option value="Nessuna">Nessuna</option>
+                  <option value="B">B</option>
+                  <option value="A">A</option>
+                  <option value="A e B">A e B</option>
+                </select>
+              </div>
+              <div class="field">
+                <label>Disponibilità weekend *</label>
+                <select id="disponibilita_weekend" required>
+                  <option value="Sì">Sì</option>
+                  <option value="No">No</option>
+                </select>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel" id="esperienze">
+            <h2 class="section-title">Esperienze lavorative</h2>
+            <div class="grid">
+              <div class="field">
+                <label>Promoter</label>
+                <select id="exp_promoting">
+                  <option value="Nessuna">Nessuna</option>
+                  <option value="meno di un anno">meno di un anno</option>
+                  <option value="da 1 a 2 anni">da 1 a 2 anni</option>
+                  <option value="più di due anni">più di due anni</option>
+                </select>
+              </div>
+              <div class="field">
+                <label>Hospitality</label>
+                <select id="exp_hospitality">
+                  <option value="Nessuna">Nessuna</option>
+                  <option value="meno di un anno">meno di un anno</option>
+                  <option value="da 1 a 2 anni">da 1 a 2 anni</option>
+                  <option value="più di due anni">più di due anni</option>
+                </select>
+              </div>
+              <div class="field">
+                <label>Security</label>
+                <select id="exp_security">
+                  <option value="Nessuna">Nessuna</option>
+                  <option value="meno di un anno">meno di un anno</option>
+                  <option value="da 1 a 2 anni">da 1 a 2 anni</option>
+                  <option value="più di due anni">più di due anni</option>
+                </select>
+              </div>
+              <div class="field">
+                <label>Event / Fiere</label>
+                <select id="exp_fiere">
+                  <option value="Nessuna">Nessuna</option>
+                  <option value="meno di un anno">meno di un anno</option>
+                  <option value="da 1 a 2 anni">da 1 a 2 anni</option>
+                  <option value="più di due anni">più di due anni</option>
+                </select>
+              </div>
+              <div class="field full">
+                <label>Modeling</label>
+                <select id="exp_modeling">
+                  <option value="Nessuna">Nessuna</option>
+                  <option value="meno di un anno">meno di un anno</option>
+                  <option value="da 1 a 2 anni">da 1 a 2 anni</option>
+                  <option value="più di due anni">più di due anni</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field full" style="margin-top:18px;">
+              <label>Attestati</label>
+              <div class="att-grid">
+                <label class="att-item"><input type="checkbox" class="att-cb" value="HACCP"> HACCP</label>
+                <label class="att-item"><input type="checkbox" class="att-cb" value="Sicurezza Basso Rischio"> Sicurezza Basso Rischio</label>
+                <label class="att-item"><input type="checkbox" class="att-cb" value="Sicurezza Alto Rischio"> Sicurezza Alto Rischio</label>
+                <label class="att-item"><input type="checkbox" class="att-cb" value="BLSD"> BLSD</label>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel" id="lingue">
+            <h2 class="section-title">Lingue straniere</h2>
+            <div id="lingue-container">
+              <div class="lingua-row">
+                <select class="l-nome" onchange="toggleL(this)" style="flex:1">
+                  <option value="Italiano">Italiano</option>
+                  <option value="Inglese">Inglese</option>
+                  <option value="Francese">Francese</option>
+                  <option value="Spagnolo">Spagnolo</option>
+                  <option value="Tedesco">Tedesco</option>
+                  <option value="Altro">Altro...</option>
+                </select>
+                <input type="text" class="l-custom" placeholder="Specifica lingua" style="display:none; flex:1">
+                <select class="l-liv" style="flex:1">
+                  <option value="Scolastico">Scolastico</option>
+                  <option value="Medio">Medio</option>
+                  <option value="Fluente">Fluente</option>
+                  <option value="Madrelingua">Madrelingua</option>
+                </select>
+              </div>
+            </div>
+
+            <button type="button" class="btn small" style="margin-top:10px;" onclick="addL()">+ Aggiungi lingua</button>
+          </section>
+
+          <section class="panel" id="documenti">
+            <h2 class="section-title">Documenti</h2>
+            <div class="grid">
+              <div class="field full"><label>CV (PDF) *</label><input type="file" id="cvFile" accept=".pdf" required></div>
+              <div class="field"><label>Foto viso *</label><input type="file" id="fotoVisoFile" accept="image/*" required></div>
+              <div class="field"><label>Foto figura intera *</label><input type="file" id="fotoFiguraInteraFile" accept="image/*" required></div>
+            </div>
+
+            <div class="privacy-box">
+              Accetto il trattamento dei dati personali e autorizzo All4U alla valutazione del mio profilo. Dichiaro che le informazioni e i materiali inviati sono autentici.
+            </div>
+
+            <div style="margin-top:15px; display:flex; align-items:center; gap:10px;">
+              <input type="checkbox" id="privacy_check" required>
+              <label for="privacy_check" style="text-transform:none; color:#fff;">Confermo la veridicità dei dati e accetto i termini *</label>
+            </div>
+
+            <button type="submit" class="btn primary" id="subBtn">Invia candidatura professionale</button>
+            <div id="msg" class="msg"></div>
+          </section>
+        </form>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    const API = "https://script.google.com/macros/s/AKfycbwAg1X1mPdUQuWTEj9pVwnxAO9cin7FPG9qV-R2lPdnBjsVJ5vvwhwOf5DzcS6fUQgtLw/exec";
+    let jobs = [];
+
+    function closeOverlay() {
+      const overlay = document.getElementById("overlay");
+      if (overlay) overlay.style.display = "none";
+    }
+
+    function calcAge() {
+      const input = document.getElementById("dataNascita");
+      const eta = document.getElementById("eta");
+
+      if (!input || !eta || !input.value) {
+        if (eta) eta.value = "";
+        return;
+      }
+
+      const birth = new Date(input.value);
+      const today = new Date();
+      let age = today.getFullYear() - birth.getFullYear();
+
+      if (
+        today.getMonth() < birth.getMonth() ||
+        (today.getMonth() === birth.getMonth() && today.getDate() < birth.getDate())
+      ) {
+        age--;
+      }
+
+      eta.value = Number.isNaN(age) ? "" : age;
+    }
+
+    function toggleL(selectEl) {
+      const custom = selectEl.parentElement.querySelector(".l-custom");
+      if (!custom) return;
+      custom.style.display = selectEl.value === "Altro" ? "block" : "none";
+      if (selectEl.value !== "Altro") custom.value = "";
+    }
+
+    function addL() {
+      const container = document.getElementById("lingue-container");
+      if (!container) return;
+
+      const row = document.createElement("div");
+      row.className = "lingua-row";
+      row.innerHTML = `
+        <select class="l-nome" onchange="toggleL(this)" style="flex:1">
+          <option value="Inglese">Inglese</option>
+          <option value="Francese">Francese</option>
+          <option value="Spagnolo">Spagnolo</option>
+          <option value="Tedesco">Tedesco</option>
+          <option value="Altro">Altro...</option>
+        </select>
+        <input type="text" class="l-custom" placeholder="Specifica lingua" style="display:none; flex:1">
+        <select class="l-liv" style="flex:1">
+          <option value="Scolastico">Scolastico</option>
+          <option value="Medio">Medio</option>
+          <option value="Fluente">Fluente</option>
+          <option value="Madrelingua">Madrelingua</option>
+        </select>
+        <button type="button" class="btn small remove" onclick="this.parentElement.remove()">X</button>
+      `;
+      container.appendChild(row);
+    }
+
+    function updatePreview() {
+      const selected = document.getElementById("jobSelect").value;
+      const job = jobs.find(j => j.job_id === selected);
+
+      const preview = document.getElementById("jobPrev");
+      const prevTitle = document.getElementById("prevTitle");
+      const prevDesc = document.getElementById("prevDesc");
+      const prevReq = document.getElementById("prevReq");
+      const prevDocs = document.getElementById("prevDocs");
+
+      if (!preview || !prevTitle || !prevDesc || !prevReq || !prevDocs) return;
+
+      if (job) {
+        preview.style.display = "block";
+        prevTitle.textContent = job.annuncio_titolo || "";
+        prevDesc.textContent = job.annuncio_testo || "";
+        prevReq.textContent = job.requisiti_pubblici ? "Requisiti:\n" + job.requisiti_pubblici : "";
+        prevDocs.textContent = job.documenti_richiesti_pubblici ? "Documenti richiesti:\n" + job.documenti_richiesti_pubblici : "";
+      } else {
+        preview.style.display = "none";
+        prevTitle.textContent = "";
+        prevDesc.textContent = "";
+        prevReq.textContent = "";
+        prevDocs.textContent = "";
+      }
+    }
+
+    async function toB64(file) {
+      return new Promise((resolve, reject) => {
+        if (!file) {
+          reject(new Error("File mancante"));
+          return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = () => {
+          resolve({
+            name: file.name,
+            mimeType: file.type,
+            base64: String(reader.result).split(",")[1]
+          });
+        };
+        reader.onerror = () => reject(new Error("Errore lettura file"));
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function showMessage(text, type) {
+      const box = document.getElementById("msg");
+      if (!box) return;
+      box.className = `msg ${type}`;
+      box.textContent = text;
+    }
+
+    async function loadJobs() {
+      try {
+        const response = await fetch(`${API}?action=get_open_jobs`);
+        const data = await response.json();
+
+        const select = document.getElementById("jobSelect");
+        if (!select) return;
+
+        if (!data.success || !Array.isArray(data.jobs)) {
+          select.innerHTML = '<option value="">Errore caricamento posizioni</option>';
+          return;
+        }
+
+        jobs = data.jobs;
+        select.innerHTML = '<option value="">Seleziona una posizione...</option>';
+
+        jobs.forEach(job => {
+          const option = document.createElement("option");
+          option.value = job.job_id;
+          option.textContent = job.annuncio_titolo || "Posizione aperta";
+          select.appendChild(option);
+        });
+      } catch (error) {
+        console.error("Errore caricamento job:", error);
+        const select = document.getElementById("jobSelect");
+        if (select) {
+          select.innerHTML = '<option value="">Errore caricamento posizioni</option>';
+        }
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      loadJobs();
+
+      const form = document.getElementById("candidateForm");
+      if (!form) return;
+
+      form.onsubmit = async (e) => {
+        e.preventDefault();
+
+        const btn = document.getElementById("subBtn");
+        if (btn) btn.disabled = true;
+        showMessage("Invio in corso...", "loading");
+
+        try {
+          const appId = "APP_" + Date.now();
+
+          const cvFile = document.getElementById("cvFile").files[0];
+          const fotoVisoFile = document.getElementById("fotoVisoFile").files[0];
+          const fotoFiguraInteraFile = document.getElementById("fotoFiguraInteraFile").files[0];
+
+          const uploadResponse = await fetch(API, {
+            method: "POST",
+            body: JSON.stringify({
+              action: "upload_candidate_files",
+              application_id: appId,
+              cv_file: await toB64(cvFile),
+              foto_viso_file: await toB64(fotoVisoFile),
+              foto_figura_intera_file: await toB64(fotoFiguraInteraFile)
+            })
+          });
+
+          const upD = await uploadResponse.json();
+          if (!upD.success || !upD.files) {
+            throw new Error(upD.message || "Errore upload file");
+          }
+
+          const lingue = Array.from(document.querySelectorAll(".lingua-row"))
+            .map(row => {
+              const nome = row.querySelector(".l-nome")?.value || "";
+              const custom = row.querySelector(".l-custom")?.value.trim() || "";
+              const livello = row.querySelector(".l-liv")?.value || "";
+              const lingua = nome === "Altro" ? custom : nome;
+              return lingua ? `${lingua} (${livello})` : null;
+            })
+            .filter(Boolean)
+            .join(", ");
+
+          const attestati = Array.from(document.querySelectorAll(".att-cb:checked"))
+            .map(c => c.value)
+            .join(", ");
+
+          const finalResponse = await fetch(API, {
+            method: "POST",
+            body: JSON.stringify({
+              action: "create_candidate",
+              application_id: appId,
+              job_id: document.getElementById("jobSelect").value,
+              nome: document.getElementById("nome").value.trim(),
+              cognome: document.getElementById("cognome").value.trim(),
+              email: document.getElementById("email").value.trim(),
+              telefono: document.getElementById("telefono").value.trim(),
+              citta: document.getElementById("citta").value.trim(),
+              altezza: document.getElementById("altezza").value,
+              data_nascita: document.getElementById("dataNascita").value,
+              eta: document.getElementById("eta").value,
+              titolo_studio: document.getElementById("titolo_studio").value,
+              regime_fiscale: document.getElementById("regime_fiscale").value,
+              automunito: document.getElementById("automunito").value,
+              patente: document.getElementById("patente").value,
+              disponibilita_weekend: document.getElementById("disponibilita_weekend").value,
+              lingue: lingue,
+              esperienza_sicurezza: attestati || "Nessuna",
+              exp_promoting: document.getElementById("exp_promoting").value,
+              exp_hospitality: document.getElementById("exp_hospitality").value,
+              exp_security: document.getElementById("exp_security").value,
+              exp_fiere: document.getElementById("exp_fiere").value,
+              exp_modeling: document.getElementById("exp_modeling").value,
+              cv_url: upD.files.cv_url,
+              foto_viso_url: upD.files.foto_viso_url,
+              foto_figura_intera_url: upD.files.foto_figura_intera_url,
+              privacy_accettata: "Sì",
+              veridicita_accettata: "Sì",
+              foto_check_accettato: "Sì",
+              timestamp: new Date().toISOString()
+            })
+          });
+
+          const resultText = await finalResponse.text();
+          let result;
+
+          try {
+            result = JSON.parse(resultText);
+          } catch (parseErr) {
+            throw new Error("Risposta backend non JSON: " + resultText);
+          }
+
+          if (!result.success) {
+            throw new Error(result.message || "Errore salvataggio candidatura");
+          }
+
+          showMessage("Candidatura registrata con successo!", "ok");
+
+          form.reset();
+          const eta = document.getElementById("eta");
+          if (eta) eta.value = "";
+
+          const preview = document.getElementById("jobPrev");
+          const prevTitle = document.getElementById("prevTitle");
+          const prevDesc = document.getElementById("prevDesc");
+          const prevReq = document.getElementById("prevReq");
+          const prevDocs = document.getElementById("prevDocs");
+
+          if (preview) preview.style.display = "none";
+          if (prevTitle) prevTitle.textContent = "";
+          if (prevDesc) prevDesc.textContent = "";
+          if (prevReq) prevReq.textContent = "";
+          if (prevDocs) prevDocs.textContent = "";
+        } catch (err) {
+          console.error(err);
+          showMessage(err.message || "Errore durante l'invio. Verifica i dati.", "err");
+        } finally {
+          if (btn) btn.disabled = false;
+        }
+      };
+    });
+  </script>
+</body>
+</html>
