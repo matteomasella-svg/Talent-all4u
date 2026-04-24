@@ -16,13 +16,19 @@
       --accent-2: #2f89ff;
       --ok: #1fc98a;
       --danger: #ff5d79;
+      --warning: #f5a623;
       --shadow: 0 14px 34px rgba(0, 0, 0, 0.28);
       --radius-xl: 24px;
       --radius-lg: 18px;
     }
 
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
       margin: 0;
@@ -103,7 +109,9 @@
       padding: 28px 20px;
     }
 
-    .hero, .panel, .sidebar-card {
+    .hero,
+    .panel,
+    .sidebar-card {
       background: var(--panel);
       border: 1px solid var(--line);
       border-radius: var(--radius-xl);
@@ -131,6 +139,12 @@
       color: var(--muted);
       max-width: 760px;
       line-height: 1.6;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
     }
 
     .layout {
@@ -225,7 +239,8 @@
       text-transform: uppercase;
     }
 
-    input, select {
+    input,
+    select {
       width: 100%;
       background: #0a1625;
       color: var(--text);
@@ -268,6 +283,12 @@
       font-size: 1.05rem;
     }
 
+    .btn.sim {
+      background: linear-gradient(90deg, #7c3aed, #38bdf8);
+      border: none;
+      color: white;
+    }
+
     .btn.small {
       padding: 10px 12px;
       font-size: 13px;
@@ -287,6 +308,7 @@
       display: none;
       text-align: center;
       font-weight: 700;
+      white-space: pre-wrap;
     }
 
     .msg.ok {
@@ -334,12 +356,6 @@
       line-height: 1.6;
     }
 
-    .job-preview .block:first-of-type {
-      margin-top: 0;
-      padding-top: 0;
-      border-top: 0;
-    }
-
     .att-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0,1fr));
@@ -373,6 +389,7 @@
       .layout {
         grid-template-columns: 1fr;
       }
+
       .sidebar-card {
         position: static;
       }
@@ -382,8 +399,13 @@
       .grid {
         grid-template-columns: 1fr;
       }
+
       .att-grid {
         grid-template-columns: 1fr;
+      }
+
+      .hero-left h1 {
+        font-size: 26px;
       }
     }
   </style>
@@ -437,6 +459,11 @@
         <h1>Candidatura Professionale</h1>
         <p>Seleziona il job post, leggi i dettagli dell’opportunità e completa la tua candidatura con tutti i materiali richiesti.</p>
       </div>
+
+      <div class="hero-actions">
+        <button type="button" class="btn sim" onclick="createSimulatedProfiles()">Simula profili completi</button>
+        <button type="button" class="btn" onclick="simulateFormOnly()">Compila form test</button>
+      </div>
     </section>
 
     <div class="layout">
@@ -464,8 +491,8 @@
           Figura completa visibile, sfondo pulito, abbigliamento ordinato.
         </div>
         <div class="side-item">
-          <strong>Campi obbligatori</strong>
-          Tutti i campi con * devono essere compilati per inviare correttamente la candidatura.
+          <strong>Simulazione</strong>
+          Il pulsante “Simula profili completi” crea direttamente profili test nel database con CV e foto generati su Drive.
         </div>
       </aside>
 
@@ -659,7 +686,7 @@
   </div>
 
   <script>
-    const API = "https://script.google.com/macros/s/AKfycbwAg1X1mPdUQuWTEj9pVwnxAO9cin7FPG9qV-R2lPdnBjsVJ5vvwhwOf5DzcS6fUQgtLw/exec";
+    const API = "https://script.google.com/macros/s/AKfycbxUU0Rf2dVoJZNr4kCtKYdmvO2rFWhAATO5Gyen4MM57EclCTGXpiLzZ0vrXaa6t2zz4g/exec";
     let jobs = [];
 
     function closeOverlay() {
@@ -693,8 +720,12 @@
     function toggleL(selectEl) {
       const custom = selectEl.parentElement.querySelector(".l-custom");
       if (!custom) return;
+
       custom.style.display = selectEl.value === "Altro" ? "block" : "none";
-      if (selectEl.value !== "Altro") custom.value = "";
+
+      if (selectEl.value !== "Altro") {
+        custom.value = "";
+      }
     }
 
     function addL() {
@@ -720,6 +751,7 @@
         </select>
         <button type="button" class="btn small remove" onclick="this.parentElement.remove()">X</button>
       `;
+
       container.appendChild(row);
     }
 
@@ -739,8 +771,8 @@
         preview.style.display = "block";
         prevTitle.textContent = job.annuncio_titolo || "";
         prevDesc.textContent = job.annuncio_testo || "";
-        prevReq.textContent = job.requisiti_pubblici ? "Requisiti:\n" + job.requisiti_pubblici : "";
-        prevDocs.textContent = job.documenti_richiesti_pubblici ? "Documenti richiesti:\n" + job.documenti_richiesti_pubblici : "";
+        prevReq.textContent = job.requisiti_pubblici ? "Requisiti:\\n" + job.requisiti_pubblici : "";
+        prevDocs.textContent = job.documenti_richiesti_pubblici ? "Documenti richiesti:\\n" + job.documenti_richiesti_pubblici : "";
       } else {
         preview.style.display = "none";
         prevTitle.textContent = "";
@@ -758,6 +790,7 @@
         }
 
         const reader = new FileReader();
+
         reader.onload = () => {
           resolve({
             name: file.name,
@@ -765,6 +798,7 @@
             base64: String(reader.result).split(",")[1]
           });
         };
+
         reader.onerror = () => reject(new Error("Errore lettura file"));
         reader.readAsDataURL(file);
       });
@@ -772,14 +806,16 @@
 
     function showMessage(text, type) {
       const box = document.getElementById("msg");
+
       if (!box) return;
-      box.className = `msg ${type}`;
+
+      box.className = "msg " + type;
       box.textContent = text;
     }
 
     async function loadJobs() {
       try {
-        const response = await fetch(`${API}?action=get_open_jobs`);
+        const response = await fetch(API + "?action=get_open_jobs");
         const data = await response.json();
 
         const select = document.getElementById("jobSelect");
@@ -796,16 +832,188 @@
         jobs.forEach(job => {
           const option = document.createElement("option");
           option.value = job.job_id;
-          option.textContent = job.annuncio_titolo || "Posizione aperta";
+          option.textContent = job.annuncio_titolo || job.progetto || "Posizione aperta";
           select.appendChild(option);
         });
       } catch (error) {
         console.error("Errore caricamento job:", error);
+
         const select = document.getElementById("jobSelect");
+
         if (select) {
           select.innerHTML = '<option value="">Errore caricamento posizioni</option>';
         }
       }
+    }
+
+    async function createSimulatedProfiles() {
+      showMessage("Creazione profili simulati con CV e foto in corso...", "loading");
+
+      try {
+        const response = await fetch(API, {
+          method: "POST",
+          body: JSON.stringify({
+            action: "create_simulated_profiles",
+            count: 5
+          })
+        });
+
+        const text = await response.text();
+        let data;
+
+        try {
+          data = JSON.parse(text);
+        } catch (e) {
+          throw new Error("Risposta backend non JSON: " + text);
+        }
+
+        if (!data.success) {
+          throw new Error(data.message || "Errore creazione profili simulati");
+        }
+
+        const names = (data.profiles || [])
+          .map(p => "- " + p.nome + " " + p.cognome + " (" + p.livello + ")")
+          .join("\\n");
+
+        showMessage(
+          "Creati " + data.created + " profili simulati con CV e foto su Drive.\\n" + names,
+          "ok"
+        );
+      } catch (err) {
+        console.error(err);
+        showMessage(err.message || "Errore simulazione profili", "err");
+      }
+    }
+
+    const TEST_PROFILE = {
+      nome: "Giulia",
+      cognome: "Mariani",
+      dataNascita: "2001-09-03",
+      emailPrefix: "giulia.mariani.test",
+      telefono: "3339876543",
+      citta: "Roma",
+      altezza: 172,
+      titolo_studio: "Diploma Superiore",
+      regime_fiscale: "Ritenuta d'acconto",
+      automunito: "Sì",
+      patente: "B",
+      disponibilita_weekend: "Sì",
+      exp_promoting: "da 1 a 2 anni",
+      exp_hospitality: "meno di un anno",
+      exp_security: "Nessuna",
+      exp_fiere: "da 1 a 2 anni",
+      exp_modeling: "meno di un anno",
+      lingue: [
+        ["Italiano", "Madrelingua"],
+        ["Inglese", "Medio"]
+      ],
+      attestati: ["HACCP"]
+    };
+
+    function simulateFormOnly() {
+      fillCandidateProfile(TEST_PROFILE);
+      showMessage("Form compilato con profilo test. Devi comunque allegare CV e foto reali prima di inviare.", "loading");
+    }
+
+    function fillCandidateProfile(profile) {
+      setValue("nome", profile.nome);
+      setValue("cognome", profile.cognome);
+      setValue("dataNascita", profile.dataNascita);
+      calcAge();
+
+      const stamp = Date.now();
+      setValue("email", profile.emailPrefix + "." + stamp + "@example.com");
+      setValue("telefono", profile.telefono);
+      setValue("citta", profile.citta);
+      setValue("altezza", profile.altezza);
+
+      setValue("titolo_studio", profile.titolo_studio);
+      setValue("regime_fiscale", profile.regime_fiscale);
+      setValue("automunito", profile.automunito);
+      setValue("patente", profile.patente);
+      setValue("disponibilita_weekend", profile.disponibilita_weekend);
+
+      setValue("exp_promoting", profile.exp_promoting);
+      setValue("exp_hospitality", profile.exp_hospitality);
+      setValue("exp_security", profile.exp_security);
+      setValue("exp_fiere", profile.exp_fiere);
+      setValue("exp_modeling", profile.exp_modeling);
+
+      fillLanguages(profile.lingue);
+      fillCertificates(profile.attestati);
+
+      const privacy = document.getElementById("privacy_check");
+      if (privacy) privacy.checked = true;
+
+      if (!document.getElementById("jobSelect").value && jobs.length > 0) {
+        document.getElementById("jobSelect").value = jobs[0].job_id;
+        updatePreview();
+      }
+    }
+
+    function fillLanguages(languages) {
+      const container = document.getElementById("lingue-container");
+      if (!container) return;
+
+      container.innerHTML = "";
+
+      languages.forEach((item, index) => {
+        const lingua = item[0];
+        const livello = item[1];
+
+        const row = document.createElement("div");
+        row.className = "lingua-row";
+
+        row.innerHTML = `
+          <select class="l-nome" onchange="toggleL(this)" style="flex:1">
+            <option value="Italiano">Italiano</option>
+            <option value="Inglese">Inglese</option>
+            <option value="Francese">Francese</option>
+            <option value="Spagnolo">Spagnolo</option>
+            <option value="Tedesco">Tedesco</option>
+            <option value="Altro">Altro...</option>
+          </select>
+          <input type="text" class="l-custom" placeholder="Specifica lingua" style="display:none; flex:1">
+          <select class="l-liv" style="flex:1">
+            <option value="Scolastico">Scolastico</option>
+            <option value="Medio">Medio</option>
+            <option value="Fluente">Fluente</option>
+            <option value="Madrelingua">Madrelingua</option>
+          </select>
+          ${index > 0 ? '<button type="button" class="btn small remove" onclick="this.parentElement.remove()">X</button>' : ''}
+        `;
+
+        container.appendChild(row);
+
+        const selectLingua = row.querySelector(".l-nome");
+        const customLingua = row.querySelector(".l-custom");
+        const selectLivello = row.querySelector(".l-liv");
+
+        const knownLanguages = ["Italiano", "Inglese", "Francese", "Spagnolo", "Tedesco"];
+
+        if (knownLanguages.includes(lingua)) {
+          selectLingua.value = lingua;
+          customLingua.style.display = "none";
+          customLingua.value = "";
+        } else {
+          selectLingua.value = "Altro";
+          customLingua.style.display = "block";
+          customLingua.value = lingua;
+        }
+
+        selectLivello.value = livello;
+      });
+    }
+
+    function fillCertificates(certificates) {
+      document.querySelectorAll(".att-cb").forEach(cb => {
+        cb.checked = certificates.includes(cb.value);
+      });
+    }
+
+    function setValue(id, value) {
+      const el = document.getElementById(id);
+      if (el) el.value = value;
     }
 
     document.addEventListener("DOMContentLoaded", () => {
@@ -819,6 +1027,7 @@
 
         const btn = document.getElementById("subBtn");
         if (btn) btn.disabled = true;
+
         showMessage("Invio in corso...", "loading");
 
         try {
@@ -840,6 +1049,7 @@
           });
 
           const upD = await uploadResponse.json();
+
           if (!upD.success || !upD.files) {
             throw new Error(upD.message || "Errore upload file");
           }
@@ -850,7 +1060,8 @@
               const custom = row.querySelector(".l-custom")?.value.trim() || "";
               const livello = row.querySelector(".l-liv")?.value || "";
               const lingua = nome === "Altro" ? custom : nome;
-              return lingua ? `${lingua} (${livello})` : null;
+
+              return lingua ? lingua + " (" + livello + ")" : null;
             })
             .filter(Boolean)
             .join(", ");
@@ -879,10 +1090,10 @@
               patente: document.getElementById("patente").value,
               disponibilita_weekend: document.getElementById("disponibilita_weekend").value,
               lingue: lingue,
-              esperienza_sicurezza: attestati || "Nessuna",
+              attestati: attestati,
+              esperienza_sicurezza: document.getElementById("exp_security").value,
               exp_promoting: document.getElementById("exp_promoting").value,
               exp_hospitality: document.getElementById("exp_hospitality").value,
-              exp_security: document.getElementById("exp_security").value,
               exp_fiere: document.getElementById("exp_fiere").value,
               exp_modeling: document.getElementById("exp_modeling").value,
               cv_url: upD.files.cv_url,
@@ -911,6 +1122,7 @@
           showMessage("Candidatura registrata con successo!", "ok");
 
           form.reset();
+
           const eta = document.getElementById("eta");
           if (eta) eta.value = "";
 
