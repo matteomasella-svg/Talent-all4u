@@ -1,51 +1,460 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>All4U | Candidatura Professionale</title>
   <style>
-    :root{--bg:#071421;--card:#10243a;--line:rgba(255,255,255,.12);--gold:#d4af37;--goldLow:rgba(212,175,55,.12);--cyan:#56c2ff;--blue:#2f89ff;--green:#1fc98a;--danger:#ff5d79;--text:#edf4ff;--muted:#9ab0c9;--shadow:0 24px 70px rgba(0,0,0,.35);--r:26px}
-    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:radial-gradient(circle at 12% 0%,#1b3a5f 0,#071421 42%,#06101b 100%);color:var(--text);min-height:100vh}.brand-top-left{position:fixed;top:18px;left:22px;z-index:10000}.brand-logo{width:210px;max-width:42vw}.page{max-width:1360px;margin:auto;padding:104px 22px 50px}.hero{display:grid;grid-template-columns:1.4fr .9fr;gap:22px;margin-bottom:22px}.hero-card,.panel,.sidebar-card{background:linear-gradient(180deg,rgba(16,36,58,.96),rgba(9,21,35,.96));border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow)}.hero-card{padding:30px;position:relative;overflow:hidden}.hero-card:after{content:"";position:absolute;right:-120px;top:-140px;width:360px;height:360px;background:radial-gradient(circle,var(--goldLow),transparent 70%)}.eyebrow{color:var(--gold);font-size:12px;font-weight:900;letter-spacing:.18em;text-transform:uppercase}.hero h1{font-size:42px;line-height:1.02;margin:12px 0 14px;letter-spacing:-.05em}.hero p{color:var(--muted);line-height:1.65;max-width:760px}.hero-side{padding:22px;display:grid;gap:12px}.kpi{background:rgba(255,255,255,.045);border:1px solid var(--line);border-radius:18px;padding:16px}.kpi b{display:block;font-size:22px;color:var(--cyan)}.kpi span{font-size:12px;color:var(--muted);font-weight:800;text-transform:uppercase}.layout{display:grid;grid-template-columns:340px 1fr;gap:22px;align-items:start}.sidebar-card{padding:22px;position:sticky;top:92px}.progress{display:grid;gap:10px;margin-bottom:22px}.step-link{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);padding:12px;background:#0a1625;border:1px solid var(--line);border-radius:14px;font-weight:800;font-size:13px}.step-num{width:25px;height:25px;border-radius:50%;display:grid;place-items:center;background:var(--goldLow);color:var(--gold);font-size:12px}.side-item{margin:14px 0;color:var(--muted);font-size:13px;line-height:1.55}.side-item strong{display:block;color:var(--text);margin-bottom:4px}.main{display:grid;gap:20px}.panel{padding:25px}.section-title{margin:0 0 18px;color:var(--gold);font-size:22px;border-bottom:1px solid var(--line);padding-bottom:12px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.field{display:flex;flex-direction:column;gap:8px}.field.full{grid-column:1/-1}label{font-size:12px;color:var(--muted);font-weight:900;text-transform:uppercase;letter-spacing:.04em}input,select{width:100%;background:#071321;color:var(--text);border:1px solid var(--line);border-radius:14px;padding:14px;outline:none}input:focus,select:focus{border-color:var(--cyan);box-shadow:0 0 0 4px rgba(86,194,255,.08)}input[readonly]{background:#17283a;color:#b8c7d9}.job-preview{display:none;margin-top:20px;background:linear-gradient(135deg,rgba(86,194,255,.08),rgba(212,175,55,.06));border:1px solid rgba(86,194,255,.28);border-radius:22px;padding:20px}.job-preview h3{margin:0 0 10px;color:var(--cyan)}.job-preview .block{white-space:pre-wrap;border-top:1px solid var(--line);padding-top:12px;margin-top:12px;color:#dbeafe;line-height:1.55}.lingua-row,.att-row{display:flex;gap:10px;margin-bottom:10px;flex-wrap:wrap}.btn{border:1px solid var(--line);background:#0f2238;color:var(--text);border-radius:14px;padding:13px 18px;cursor:pointer;font-weight:900}.btn.primary{background:linear-gradient(90deg,var(--blue),var(--cyan));border:none;color:white;width:100%;font-size:1.05rem;margin-top:20px;box-shadow:0 12px 30px rgba(47,137,255,.25)}.btn.small{padding:10px 12px;font-size:13px}.btn.remove{background:var(--danger);border:none;color:white}.upload-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.upload-card{background:#071321;border:1px dashed rgba(212,175,55,.45);border-radius:18px;padding:16px}.upload-card label{color:var(--gold)}.privacy-box{margin-top:20px;font-size:12px;color:var(--muted);line-height:1.75;border:1px solid var(--line);padding:16px;border-radius:16px;background:#071321;white-space:pre-line}.msg{margin-top:16px;padding:14px;border-radius:14px;display:none;text-align:center;font-weight:900;white-space:pre-wrap}.msg.ok{display:block;background:rgba(31,201,138,.12);border:1px solid var(--green);color:#cffff0}.msg.err{display:block;background:rgba(255,93,121,.12);border:1px solid var(--danger);color:#ffd8df}.msg.loading{display:block;background:rgba(86,194,255,.1);border:1px solid rgba(86,194,255,.45);color:#d7efff}#overlay{position:fixed;inset:0;background:rgba(5,14,24,.985);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;overflow:auto}.modal-content{max-width:960px;width:100%;background:linear-gradient(180deg,#10243a,#091523);border:1px solid var(--gold);border-radius:30px;padding:34px;box-shadow:var(--shadow);margin-top:70px}.modal-content h2{text-align:center;color:var(--gold);margin-top:0}.modal-content p{color:var(--muted);line-height:1.6}.modal-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:22px 0}.modal-box{background:#071321;border:1px solid var(--line);border-radius:18px;padding:18px}.modal-box h4{color:var(--cyan);margin:0 0 10px;text-transform:uppercase;font-size:13px}.modal-box li{color:var(--muted);font-size:13px;line-height:1.65}@media(max-width:1020px){.hero,.layout{grid-template-columns:1fr}.sidebar-card{position:static}.upload-grid{grid-template-columns:1fr}}@media(max-width:720px){.grid{grid-template-columns:1fr}.hero h1{font-size:32px}.page{padding-top:92px}.brand-logo{width:165px}}
+    :root {
+      --bg: #071421;
+      --bg2: #0b1c31;
+      --card: #10243a;
+      --field: #071321;
+      --line: rgba(255,255,255,.14);
+      --gold: #d4af37;
+      --gold-low: rgba(212,175,55,.13);
+      --cyan: #56c2ff;
+      --blue: #2f89ff;
+      --green: #1fc98a;
+      --danger: #ff5d79;
+      --text: #edf4ff;
+      --muted: #9ab0c9;
+      --shadow: 0 24px 70px rgba(0,0,0,.36);
+      --radius: 26px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: radial-gradient(circle at 12% 0%, #1b3a5f 0, #071421 42%, #06101b 100%);
+      color: var(--text);
+      min-height: 100vh;
+    }
+    .brand-top-left { position: fixed; top: 18px; left: 22px; z-index: 10000; }
+    .brand-logo { width: 210px; max-width: 42vw; }
+    .page { max-width: 1360px; margin: auto; padding: 104px 22px 50px; }
+    .hero { display: grid; grid-template-columns: 1.4fr .9fr; gap: 22px; margin-bottom: 22px; }
+    .hero-card, .panel, .sidebar-card {
+      background: linear-gradient(180deg, rgba(16,36,58,.97), rgba(9,21,35,.97));
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .hero-card { padding: 30px; position: relative; overflow: hidden; }
+    .hero-card:after { content: ""; position: absolute; right: -120px; top: -140px; width: 360px; height: 360px; background: radial-gradient(circle, var(--gold-low), transparent 70%); }
+    .eyebrow { color: var(--gold); font-size: 12px; font-weight: 900; letter-spacing: .18em; text-transform: uppercase; }
+    h1 { font-size: 42px; line-height: 1.02; margin: 12px 0 14px; letter-spacing: -.05em; }
+    .hero p { color: var(--muted); line-height: 1.65; max-width: 760px; }
+    .hero-side { padding: 22px; display: grid; gap: 12px; }
+    .kpi { background: rgba(255,255,255,.045); border: 1px solid var(--line); border-radius: 18px; padding: 16px; }
+    .kpi b { display: block; font-size: 22px; color: var(--cyan); }
+    .kpi span { font-size: 12px; color: var(--muted); font-weight: 800; text-transform: uppercase; }
+    .layout { display: grid; grid-template-columns: 340px 1fr; gap: 22px; align-items: start; }
+    .sidebar-card { padding: 22px; position: sticky; top: 92px; }
+    .progress { display: grid; gap: 10px; margin-bottom: 22px; }
+    .step-link { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); padding: 12px; background: #0a1625; border: 1px solid var(--line); border-radius: 14px; font-weight: 800; font-size: 13px; }
+    .step-num { width: 25px; height: 25px; border-radius: 50%; display: grid; place-items: center; background: var(--gold-low); color: var(--gold); font-size: 12px; }
+    .side-item { margin: 14px 0; color: var(--muted); font-size: 13px; line-height: 1.55; }
+    .side-item strong { display: block; color: var(--text); margin-bottom: 4px; }
+    .main { display: grid; gap: 20px; }
+    .panel { padding: 25px; }
+    .section-title { margin: 0 0 18px; color: var(--gold); font-size: 22px; border-bottom: 1px solid var(--line); padding-bottom: 12px; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .field { display: flex; flex-direction: column; gap: 8px; }
+    .field.full { grid-column: 1 / -1; }
+    label { font-size: 12px; color: var(--muted); font-weight: 900; text-transform: uppercase; letter-spacing: .04em; }
+    input, select, textarea { width: 100%; background: var(--field); color: var(--text); border: 1px solid var(--line); border-radius: 14px; padding: 14px; outline: none; font-size: 14px; }
+    input:focus, select:focus, textarea:focus { border-color: var(--cyan); box-shadow: 0 0 0 4px rgba(86,194,255,.08); }
+    input[readonly] { background: #17283a; color: #b8c7d9; }
+    .job-preview { display: none; margin-top: 20px; background: linear-gradient(135deg, rgba(86,194,255,.08), rgba(212,175,55,.06)); border: 1px solid rgba(86,194,255,.28); border-radius: 22px; padding: 20px; }
+    .job-preview h3 { margin: 0 0 10px; color: var(--cyan); }
+    .job-preview .block { white-space: pre-wrap; border-top: 1px solid var(--line); padding-top: 12px; margin-top: 12px; color: #dbeafe; line-height: 1.55; }
+    .lingua-row, .att-row { display: flex; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+    .btn { border: 1px solid var(--line); background: #0f2238; color: var(--text); border-radius: 14px; padding: 13px 18px; cursor: pointer; font-weight: 900; }
+    .btn.primary { background: linear-gradient(90deg, var(--blue), var(--cyan)); border: none; color: white; width: 100%; font-size: 1.05rem; margin-top: 20px; box-shadow: 0 12px 30px rgba(47,137,255,.25); }
+    .btn.small { padding: 10px 12px; font-size: 13px; }
+    .btn.remove { background: var(--danger); border: none; color: white; }
+    .upload-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .upload-card { background: var(--field); border: 1px dashed rgba(212,175,55,.45); border-radius: 18px; padding: 16px; }
+    .upload-card label { color: var(--gold); }
+    .privacy-box { margin-top: 20px; font-size: 12px; color: var(--muted); line-height: 1.75; border: 1px solid var(--line); padding: 16px; border-radius: 16px; background: var(--field); white-space: pre-line; }
+    .msg { margin-top: 16px; padding: 14px; border-radius: 14px; display: none; text-align: center; font-weight: 900; }
+    .msg.ok { display: block; background: rgba(31,201,138,.12); border: 1px solid var(--green); color: #cffff0; }
+    .msg.err { display: block; background: rgba(255,93,121,.12); border: 1px solid var(--danger); color: #ffd8df; }
+    .msg.loading { display: block; background: rgba(86,194,255,.1); border: 1px solid rgba(86,194,255,.45); color: #d7efff; }
+    #overlay { position: fixed; inset: 0; background: rgba(5,14,24,.985); z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 20px; overflow: auto; }
+    .modal-content { max-width: 960px; width: 100%; background: linear-gradient(180deg,#10243a,#091523); border: 1px solid var(--gold); border-radius: 30px; padding: 34px; box-shadow: var(--shadow); margin-top: 70px; }
+    .modal-content h2 { text-align: center; color: var(--gold); margin-top: 0; }
+    .modal-content p { color: var(--muted); line-height: 1.6; }
+    .modal-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); gap: 16px; margin: 22px 0; }
+    .modal-box { background: var(--field); border: 1px solid var(--line); border-radius: 18px; padding: 18px; }
+    .modal-box h4 { color: var(--cyan); margin: 0 0 10px; text-transform: uppercase; font-size: 13px; }
+    .modal-box li { color: var(--muted); font-size: 13px; line-height: 1.65; }
+    @media(max-width:1020px){ .hero,.layout{grid-template-columns:1fr}.sidebar-card{position:static}.upload-grid{grid-template-columns:1fr} }
+    @media(max-width:720px){ .grid{grid-template-columns:1fr}.hero h1{font-size:32px}.page{padding-top:92px}.brand-logo{width:165px} }
   </style>
 </head>
 <body>
-  <div class="brand-top-left"><img src="logodefall4u.png" alt="All4U" class="brand-logo"></div>
-  <div id="overlay"><div class="modal-content"><div class="eyebrow">All4U Talent Platform</div><h2>Linee guida candidatura</h2><p>Completa il profilo con dati accurati e materiali professionali. CV e foto sono usati esclusivamente per selezione, presentabilità operativa e compatibilità con servizi hospitality/eventi.</p><div class="modal-grid"><div class="modal-box"><h4>CV consigliato</h4><ul><li>PDF chiaro, massimo 2 pagine</li><li>Esperienze recenti in evidenza</li><li>Lingue, patente, automunito/a e attestati</li></ul></div><div class="modal-box"><h4>Foto primo piano</h4><ul><li>Viso ben visibile e luce frontale</li><li>No filtri marcati, no occhiali da sole</li><li>Sfondo neutro e immagine recente</li></ul></div><div class="modal-box"><h4>Foto figura intera</h4><ul><li>Persona interamente visibile</li><li>Postura naturale e abbigliamento ordinato</li><li>No foto tagliate o sfondi disordinati</li></ul></div></div><button class="btn primary" style="width:auto;padding:14px 34px" onclick="closeOverlay()">Accetto e procedo</button></div></div>
+  <div class="brand-top-left"><img src="logodefall4u.png" alt="All4U" class="brand-logo" /></div>
+
+  <div id="overlay">
+    <div class="modal-content">
+      <div class="eyebrow">All4U Talent Platform</div>
+      <h2>Linee guida candidatura</h2>
+      <p>Completa il profilo con dati accurati e materiali professionali. CV e foto sono usati esclusivamente per selezione, presentabilità operativa e compatibilità con servizi hospitality/eventi.</p>
+      <div class="modal-grid">
+        <div class="modal-box"><h4>CV consigliato</h4><ul><li>PDF chiaro, massimo 2 pagine.</li><li>Esperienze recenti in evidenza.</li><li>Lingue, patente, automunito/a e attestati.</li></ul></div>
+        <div class="modal-box"><h4>Foto primo piano</h4><ul><li>Viso ben visibile e luce frontale.</li><li>No filtri marcati, no occhiali da sole.</li><li>Sfondo neutro e immagine recente.</li></ul></div>
+        <div class="modal-box"><h4>Foto figura intera</h4><ul><li>Persona interamente visibile.</li><li>Postura naturale e abbigliamento ordinato.</li><li>No foto tagliate o sfondi disordinati.</li></ul></div>
+      </div>
+      <button class="btn primary" style="width:auto;padding:14px 34px" onclick="closeOverlay()">Accetto e procedo</button>
+    </div>
+  </div>
+
   <div class="page">
-    <section class="hero"><div class="hero-card"><div class="eyebrow">Candidatura professionale</div><h1>Entra nel network operativo All4U</h1><p>Seleziona una posizione aperta, carica CV e foto richieste e completa il profilo. La candidatura sarà registrata sul sistema All4U e valutata rispetto ai requisiti della ricerca.</p></div><div class="hero-side hero-card"><div class="kpi"><b>01</b><span>scegli posizione</span></div><div class="kpi"><b>02</b><span>completa profilo</span></div><div class="kpi"><b>03</b><span>carica materiali</span></div></div></section>
-    <div class="layout"><aside class="sidebar-card"><nav class="progress"><a class="step-link" href="#job"><span class="step-num">1</span> Posizione</a><a class="step-link" href="#dati"><span class="step-num">2</span> Anagrafica</a><a class="step-link" href="#profilo"><span class="step-num">3</span> Profilo</a><a class="step-link" href="#esperienze"><span class="step-num">4</span> Esperienze</a><a class="step-link" href="#lingue"><span class="step-num">5</span> Lingue</a><a class="step-link" href="#documenti"><span class="step-num">6</span> Documenti</a></nav><div class="side-item"><strong>CV</strong>File PDF leggibile con contatti, formazione, lingue ed esperienze.</div><div class="side-item"><strong>Foto viso</strong>Primo piano curato, luce naturale, no filtri o foto di gruppo.</div><div class="side-item"><strong>Foto figura intera</strong>Figura completa, sfondo pulito e abbigliamento ordinato.</div></aside>
-      <main class="main"><form id="candidateForm">
-        <section class="panel" id="job"><h2 class="section-title">Posizione aperta</h2><div class="field full"><label for="jobSelect">Scegli il ruolo *</label><select id="jobSelect" required onchange="updatePreview()"><option value="">Caricamento...</option></select></div><div id="jobPrev" class="job-preview"><h3 id="prevTitle"></h3><div id="prevDesc" class="block"></div><div id="prevReq" class="block"></div><div id="prevDocs" class="block"></div></div></section>
-        <section class="panel" id="dati"><h2 class="section-title">Anagrafica</h2><div class="grid"><div class="field"><label>Nome *</label><input type="text" id="nome" required></div><div class="field"><label>Cognome *</label><input type="text" id="cognome" required></div><div class="field"><label>Data di nascita *</label><input type="date" id="dataNascita" required onchange="calcAge()"></div><div class="field"><label>Età</label><input type="number" id="eta" readonly></div><div class="field"><label>Email *</label><input type="email" id="email" required></div><div class="field"><label>Telefono *</label><input type="tel" id="telefono" required></div><div class="field full"><label>Città di residenza *</label><input type="text" id="citta" required></div></div></section>
-        <section class="panel" id="profilo"><h2 class="section-title">Profilo & Formazione</h2><div class="grid"><div class="field"><label>Altezza (cm) *</label><input type="number" id="altezza" required></div><div class="field"><label>Titolo di studio *</label><select id="titolo_studio" required><option>Diploma Superiore</option><option>Laurea Triennale</option><option>Laurea Magistrale</option><option>Licenza Media</option></select></div><div class="field"><label>Regime fiscale *</label><select id="regime_fiscale" required><option>Ritenuta d'acconto</option><option>Partita IVA</option></select></div><div class="field"><label>Automunito/a *</label><select id="automunito" required><option>No</option><option>Sì</option></select></div><div class="field"><label>Patente *</label><select id="patente" required><option>Nessuna</option><option>B</option><option>A</option><option>A e B</option></select></div><div class="field"><label>Disponibilità weekend *</label><select id="disponibilita_weekend" required><option>Sì</option><option>No</option></select></div></div></section>
-        <section class="panel" id="esperienze"><h2 class="section-title">Esperienze lavorative</h2><div class="grid"><div class="field"><label>Promoter</label><select id="exp_promoting"><option>Nessuna</option><option>meno di un anno</option><option>da 1 a 2 anni</option><option>più di due anni</option></select></div><div class="field"><label>Hospitality</label><select id="exp_hospitality"><option>Nessuna</option><option>meno di un anno</option><option>da 1 a 2 anni</option><option>più di due anni</option></select></div><div class="field"><label>Security</label><select id="exp_security"><option>Nessuna</option><option>meno di un anno</option><option>da 1 a 2 anni</option><option>più di due anni</option></select></div><div class="field"><label>Event / Fiere</label><select id="exp_fiere"><option>Nessuna</option><option>meno di un anno</option><option>da 1 a 2 anni</option><option>più di due anni</option></select></div><div class="field full"><label>Modeling</label><select id="exp_modeling"><option>Nessuna</option><option>meno di un anno</option><option>da 1 a 2 anni</option><option>più di due anni</option></select></div></div><div class="field full" style="margin-top:18px"><label>Attestati</label><div id="attestati-container"><div class="att-row"><select class="a-nome" onchange="toggleA(this)" style="flex:1"><option>HACCP</option><option>Sicurezza Basso Rischio</option><option>Sicurezza Alto Rischio</option><option>BLSD</option><option>Altro</option></select><input type="text" class="a-custom" placeholder="Specifica attestato" style="display:none;flex:1"></div></div><button type="button" class="btn small" style="margin-top:10px" onclick="addA()">+ Aggiungi attestato</button></div></section>
-        <section class="panel" id="lingue"><h2 class="section-title">Lingue straniere</h2><div id="lingue-container"><div class="lingua-row"><select class="l-nome" onchange="toggleL(this)" style="flex:1"><option>Italiano</option><option>Inglese</option><option>Francese</option><option>Spagnolo</option><option>Tedesco</option><option>Altro</option></select><input type="text" class="l-custom" placeholder="Specifica lingua" style="display:none;flex:1"><select class="l-liv" style="flex:1"><option>Scolastico</option><option>Medio</option><option>Fluente</option><option>Madrelingua</option></select></div></div><button type="button" class="btn small" style="margin-top:10px" onclick="addL()">+ Aggiungi lingua</button></section>
-        <section class="panel" id="documenti"><h2 class="section-title">Documenti</h2><div class="upload-grid"><div class="upload-card"><label>CV (PDF) *</label><input type="file" id="cvFile" accept=".pdf" required></div><div class="upload-card"><label>Foto viso *</label><input type="file" id="fotoVisoFile" accept="image/*" required></div><div class="upload-card"><label>Foto figura intera *</label><input type="file" id="fotoFiguraInteraFile" accept="image/*" required></div></div><div class="privacy-box">I dati personali, i documenti caricati e i materiali inviati tramite questa candidatura saranno trattati da All4U esclusivamente per finalità di selezione, valutazione del profilo, gestione del processo di recruiting e possibile ricontatto per opportunità compatibili.
+    <section class="hero">
+      <div class="hero-card"><div class="eyebrow">Candidatura professionale</div><h1>Entra nel network operativo All4U</h1><p>Seleziona una posizione aperta, carica CV e foto richieste e completa il profilo. La candidatura sarà registrata sul sistema All4U e valutata rispetto ai requisiti della ricerca.</p></div>
+      <div class="hero-side hero-card"><div class="kpi"><b>01</b><span>scegli posizione</span></div><div class="kpi"><b>02</b><span>completa profilo</span></div><div class="kpi"><b>03</b><span>carica materiali</span></div></div>
+    </section>
+
+    <div class="layout">
+      <aside class="sidebar-card">
+        <nav class="progress">
+          <a class="step-link" href="#job"><span class="step-num">1</span> Posizione</a>
+          <a class="step-link" href="#dati"><span class="step-num">2</span> Anagrafica</a>
+          <a class="step-link" href="#profilo"><span class="step-num">3</span> Profilo</a>
+          <a class="step-link" href="#esperienze"><span class="step-num">4</span> Esperienze</a>
+          <a class="step-link" href="#lingue"><span class="step-num">5</span> Lingue</a>
+          <a class="step-link" href="#documenti"><span class="step-num">6</span> Documenti</a>
+        </nav>
+        <div class="side-item"><strong>CV</strong>File PDF leggibile con contatti, formazione, lingue ed esperienze.</div>
+        <div class="side-item"><strong>Foto viso</strong>Primo piano curato, luce naturale, no filtri o foto di gruppo.</div>
+        <div class="side-item"><strong>Foto figura intera</strong>Figura completa, sfondo pulito e abbigliamento ordinato.</div>
+      </aside>
+
+      <main class="main">
+        <form id="candidateForm">
+          <section class="panel" id="job">
+            <h2 class="section-title">Posizione aperta</h2>
+            <div class="field full"><label for="jobSelect">Scegli il ruolo *</label><select id="jobSelect" required onchange="updatePreview()"><option value="">Caricamento posizioni...</option></select></div>
+            <div id="jobPrev" class="job-preview"><h3 id="prevTitle"></h3><div id="prevDesc" class="block"></div><div id="prevReq" class="block"></div><div id="prevDocs" class="block"></div></div>
+          </section>
+
+          <section class="panel" id="dati">
+            <h2 class="section-title">Anagrafica</h2>
+            <div class="grid">
+              <div class="field"><label>Nome *</label><input type="text" id="nome" required /></div>
+              <div class="field"><label>Cognome *</label><input type="text" id="cognome" required /></div>
+              <div class="field"><label>Data di nascita *</label><input type="date" id="dataNascita" required onchange="calcAge()" /></div>
+              <div class="field"><label>Età</label><input type="number" id="eta" readonly /></div>
+              <div class="field"><label>Email *</label><input type="email" id="email" required /></div>
+              <div class="field"><label>Telefono *</label><input type="tel" id="telefono" required /></div>
+              <div class="field full"><label>Città di residenza *</label><input type="text" id="citta" required /></div>
+            </div>
+          </section>
+
+          <section class="panel" id="profilo">
+            <h2 class="section-title">Profilo & Formazione</h2>
+            <div class="grid">
+              <div class="field"><label>Altezza (cm) *</label><input type="number" id="altezza" required /></div>
+              <div class="field"><label>Titolo di studio *</label><select id="titolo_studio" required><option>Diploma Superiore</option><option>Laurea Triennale</option><option>Laurea Magistrale</option><option>Licenza Media</option></select></div>
+              <div class="field"><label>Regime fiscale *</label><select id="regime_fiscale" required><option>Ritenuta d'acconto</option><option>Partita IVA</option></select></div>
+              <div class="field"><label>Automunito/a *</label><select id="automunito" required><option>No</option><option>Sì</option></select></div>
+              <div class="field"><label>Patente *</label><select id="patente" required><option>Nessuna</option><option>B</option><option>A</option><option>A e B</option></select></div>
+              <div class="field"><label>Disponibilità weekend *</label><select id="disponibilita_weekend" required><option>Sì</option><option>No</option></select></div>
+            </div>
+          </section>
+
+          <section class="panel" id="esperienze">
+            <h2 class="section-title">Esperienze lavorative</h2>
+            <div class="grid">
+              <div class="field"><label>Promoter</label><select id="exp_promoting"><option>Nessuna</option><option>meno di un anno</option><option>da 1 a 2 anni</option><option>più di due anni</option></select></div>
+              <div class="field"><label>Hospitality</label><select id="exp_hospitality"><option>Nessuna</option><option>meno di un anno</option><option>da 1 a 2 anni</option><option>più di due anni</option></select></div>
+              <div class="field"><label>Security</label><select id="exp_security"><option>Nessuna</option><option>meno di un anno</option><option>da 1 a 2 anni</option><option>più di due anni</option></select></div>
+              <div class="field"><label>Event / Fiere</label><select id="exp_fiere"><option>Nessuna</option><option>meno di un anno</option><option>da 1 a 2 anni</option><option>più di due anni</option></select></div>
+              <div class="field full"><label>Modeling</label><select id="exp_modeling"><option>Nessuna</option><option>meno di un anno</option><option>da 1 a 2 anni</option><option>più di due anni</option></select></div>
+            </div>
+            <div class="field full" style="margin-top:18px"><label>Attestati</label><div id="attestati-container"><div class="att-row"><select class="a-nome" onchange="toggleA(this)" style="flex:1"><option>HACCP</option><option>Sicurezza Basso Rischio</option><option>Sicurezza Alto Rischio</option><option>BLSD</option><option>Altro</option></select><input type="text" class="a-custom" placeholder="Specifica attestato" style="display:none;flex:1" /></div></div><button type="button" class="btn small" style="margin-top:10px" onclick="addA()">+ Aggiungi attestato</button></div>
+          </section>
+
+          <section class="panel" id="lingue">
+            <h2 class="section-title">Lingue straniere</h2>
+            <div id="lingue-container"><div class="lingua-row"><select class="l-nome" onchange="toggleL(this)" style="flex:1"><option>Italiano</option><option>Inglese</option><option>Francese</option><option>Spagnolo</option><option>Tedesco</option><option>Altro</option></select><input type="text" class="l-custom" placeholder="Specifica lingua" style="display:none;flex:1" /><select class="l-liv" style="flex:1"><option>Scolastico</option><option>Medio</option><option>Fluente</option><option>Madrelingua</option></select></div></div>
+            <button type="button" class="btn small" style="margin-top:10px" onclick="addL()">+ Aggiungi lingua</button>
+          </section>
+
+          <section class="panel" id="documenti">
+            <h2 class="section-title">Documenti</h2>
+            <div class="upload-grid"><div class="upload-card"><label>CV (PDF) *</label><input type="file" id="cvFile" accept=".pdf" required /></div><div class="upload-card"><label>Foto viso *</label><input type="file" id="fotoVisoFile" accept="image/*" required /></div><div class="upload-card"><label>Foto figura intera *</label><input type="file" id="fotoFiguraInteraFile" accept="image/*" required /></div></div>
+            <div class="privacy-box">I dati personali, i documenti caricati e i materiali inviati tramite questa candidatura saranno trattati da All4U esclusivamente per finalità di selezione, valutazione del profilo, gestione del processo di recruiting e possibile ricontatto per opportunità compatibili.
 
 L'invio di foto non ha finalità discriminatorie, ma serve esclusivamente per valutare la presentabilità richiesta da specifici servizi di accoglienza, eventi, hospitality e attività promozionali.
 
-Inviando la candidatura, il candidato dichiara che i dati forniti sono veritieri e autorizza All4U all'utilizzo degli stessi per le finalità sopra indicate.</div><div style="margin-top:15px;display:flex;align-items:center;gap:10px"><input type="checkbox" id="privacy_check" required><label for="privacy_check" style="text-transform:none;color:#fff">Confermo la veridicità dei dati e accetto i termini *</label></div><button type="submit" class="btn primary" id="subBtn">Invia candidatura professionale</button><div id="msg" class="msg"></div></section>
-      </form></main></div></div>
+Inviando la candidatura, il candidato dichiara che i dati forniti sono veritieri e autorizza All4U all'utilizzo degli stessi per le finalità sopra indicate.</div>
+            <div style="margin-top:15px;display:flex;align-items:center;gap:10px"><input type="checkbox" id="privacy_check" required /><label for="privacy_check" style="text-transform:none;color:#fff">Confermo la veridicità dei dati e accetto i termini *</label></div>
+            <button type="submit" class="btn primary" id="subBtn">Invia candidatura professionale</button>
+            <div id="msg" class="msg"></div>
+          </section>
+        </form>
+      </main>
+    </div>
+  </div>
+
   <script>
     const API = "https://script.google.com/macros/s/AKfycbxLFZERfvvzyg5nD3bBl6r3eC1Ylb9Iec_jA_xq1TJnmRIrHWrc3HpxT_1eqA5Wkfcq-g/exec";
     let jobs = [];
-    function closeOverlay(){const overlay=document.getElementById('overlay'); if(overlay) overlay.style.display='none'}
-    function calcAge(){const input=document.getElementById('dataNascita'),eta=document.getElementById('eta'); if(!input||!eta||!input.value){if(eta)eta.value='';return} const birth=new Date(input.value),today=new Date(); let age=today.getFullYear()-birth.getFullYear(); if(today.getMonth()<birth.getMonth()||(today.getMonth()===birth.getMonth()&&today.getDate()<birth.getDate())) age--; eta.value=Number.isNaN(age)?'':age}
-    function toggleL(selectEl){const custom=selectEl.parentElement.querySelector('.l-custom'); if(!custom)return; custom.style.display=selectEl.value==='Altro'?'block':'none'; if(selectEl.value!=='Altro')custom.value=''}
-    function addL(){const container=document.getElementById('lingue-container'); if(!container)return; const row=document.createElement('div'); row.className='lingua-row'; row.innerHTML='<select class="l-nome" onchange="toggleL(this)" style="flex:1"><option>Inglese</option><option>Francese</option><option>Spagnolo</option><option>Tedesco</option><option>Altro</option></select><input type="text" class="l-custom" placeholder="Specifica lingua" style="display:none;flex:1"><select class="l-liv" style="flex:1"><option>Scolastico</option><option>Medio</option><option>Fluente</option><option>Madrelingua</option></select><button type="button" class="btn small remove" onclick="this.parentElement.remove()">X</button>'; container.appendChild(row)}
-    function toggleA(selectEl){const custom=selectEl.parentElement.querySelector('.a-custom'); if(!custom)return; custom.style.display=selectEl.value==='Altro'?'block':'none'; if(selectEl.value!=='Altro')custom.value=''}
-    function addA(){const container=document.getElementById('attestati-container'); if(!container)return; const row=document.createElement('div'); row.className='att-row'; row.innerHTML='<select class="a-nome" onchange="toggleA(this)" style="flex:1"><option>HACCP</option><option>Sicurezza Basso Rischio</option><option>Sicurezza Alto Rischio</option><option>BLSD</option><option>Altro</option></select><input type="text" class="a-custom" placeholder="Specifica attestato" style="display:none;flex:1"><button type="button" class="btn small remove" onclick="this.parentElement.remove()">X</button>'; container.appendChild(row)}
-    function getSelectedJob(){return jobs.find(j=>String(j.job_id)===String(document.getElementById('jobSelect').value))||null}
-    function updatePreview(){const job=getSelectedJob(); const preview=document.getElementById('jobPrev'),prevTitle=document.getElementById('prevTitle'),prevDesc=document.getElementById('prevDesc'),prevReq=document.getElementById('prevReq'),prevDocs=document.getElementById('prevDocs'); if(!preview||!prevTitle||!prevDesc||!prevReq||!prevDocs)return; if(job){preview.style.display='block'; prevTitle.textContent=job.annuncio_titolo||job.titolo_annuncio||''; prevDesc.textContent=job.annuncio_testo||job.testo_annuncio||''; prevReq.textContent=job.requisiti_pubblici?'Requisiti:\n'+job.requisiti_pubblici:''; prevDocs.textContent=job.documenti_richiesti_pubblici?'Documenti richiesti:\n'+job.documenti_richiesti_pubblici:''}else{preview.style.display='none';prevTitle.textContent='';prevDesc.textContent='';prevReq.textContent='';prevDocs.textContent=''}}
-    async function toB64(file){return new Promise((resolve,reject)=>{if(!file){reject(new Error('File mancante'));return} const reader=new FileReader(); reader.onload=()=>resolve({name:file.name,mimeType:file.type||'application/octet-stream',base64:String(reader.result).split(',')[1]}); reader.onerror=()=>reject(new Error('Errore lettura file')); reader.readAsDataURL(file)})}
-    function showMessage(text,type){const box=document.getElementById('msg'); if(!box)return; box.className='msg '+type; box.textContent=text}
-    async function postJSON(payload){const response=await fetch(API,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)}); const text=await response.text(); try{return JSON.parse(text)}catch(e){throw new Error('Risposta backend non JSON: '+text)}}
-    async function loadJobs(){try{const response=await fetch(API+'?action=get_open_jobs&ts='+Date.now()); const data=await response.json(); const select=document.getElementById('jobSelect'); if(!select)return; if(!data.success||!Array.isArray(data.jobs)){select.innerHTML='<option value="">Errore caricamento posizioni</option>';return} jobs=data.jobs; select.innerHTML='<option value="">Seleziona una posizione...</option>'; jobs.forEach(job=>{const option=document.createElement('option'); option.value=job.job_id; option.textContent=job.annuncio_titolo||job.titolo_annuncio||job.ruolo||'Posizione aperta'; select.appendChild(option)})}catch(error){console.error('Errore caricamento job:',error); const select=document.getElementById('jobSelect'); if(select)select.innerHTML='<option value="">Errore caricamento posizioni</option>'}}
-    function collectLingue(){return Array.from(document.querySelectorAll('.lingua-row')).map(row=>{const nome=row.querySelector('.l-nome')?.value||''; const custom=row.querySelector('.l-custom')?.value.trim()||''; const livello=row.querySelector('.l-liv')?.value||''; const lingua=nome==='Altro'?custom:nome; return lingua?lingua+' ('+livello+')':null}).filter(Boolean).join(', ')}
-    function collectAttestati(){return Array.from(document.querySelectorAll('.att-row')).map(row=>{const nome=row.querySelector('.a-nome')?.value||''; const custom=row.querySelector('.a-custom')?.value.trim()||''; return nome==='Altro'?custom:nome}).filter(Boolean).join(', ')}
-    function expSummary(){return ['Promoter: '+document.getElementById('exp_promoting').value,'Hospitality: '+document.getElementById('exp_hospitality').value,'Security: '+document.getElementById('exp_security').value,'Event/Fiere: '+document.getElementById('exp_fiere').value,'Modeling: '+document.getElementById('exp_modeling').value].join(' | ')}
-    document.addEventListener('DOMContentLoaded',()=>{loadJobs(); const form=document.getElementById('candidateForm'); if(!form)return; form.onsubmit=async(e)=>{e.preventDefault(); const btn=document.getElementById('subBtn'); if(btn)btn.disabled=true; showMessage('Invio in corso...','loading'); try{const job=getSelectedJob(); if(!job)throw new Error('Seleziona una posizione aperta.'); const appId='APP_'+Date.now(); const cvFile=document.getElementById('cvFile').files[0]; const fotoVisoFile=document.getElementById('fotoVisoFile').files[0]; const fotoFiguraInteraFile=document.getElementById('fotoFiguraInteraFile').files[0]; const uploadPayload={action:'upload_candidate_files',application_id:appId,cv_file:await toB64(cvFile),foto_viso_file:await toB64(fotoVisoFile),foto_figura_intera_file:await toB64(fotoFiguraInteraFile)}; const upD=await postJSON(uploadPayload); if(!upD.success||!upD.files)throw new Error(upD.message||upD.error||'Errore upload file'); const lingue=collectLingue(); const attestati=collectAttestati(); const finalPayload={action:'create_candidate',application_id:appId,job_id:job.job_id,job_code:job.job_code||'',cliente:job.cliente||'',progetto:job.progetto||'',ruolo:job.ruolo||job.ruolo_richiesta||'',ruolo_richiesta:job.ruolo_richiesta||job.ruolo||'',annuncio_titolo:job.annuncio_titolo||job.titolo_annuncio||'',annuncio_testo:job.annuncio_testo||job.testo_annuncio||'',stato_posizione:job.stato_posizione||'',nome:document.getElementById('nome').value.trim(),cognome:document.getElementById('cognome').value.trim(),email:document.getElementById('email').value.trim(),telefono:document.getElementById('telefono').value.trim(),citta:document.getElementById('citta').value.trim(),altezza:document.getElementById('altezza').value,data_nascita:document.getElementById('dataNascita').value,eta:document.getElementById('eta').value,titolo_studio:document.getElementById('titolo_studio').value,regime_fiscale:document.getElementById('regime_fiscale').value,automunito:document.getElementById('automunito').value,patente:document.getElementById('patente').value,disponibilita_weekend:document.getElementById('disponibilita_weekend').value,lingue:lingue,attestati:attestati||'Nessuna',certificazioni:attestati||'Nessuna',esperienza_sicurezza:attestati||'Nessuna',esperienze_lavorative:expSummary(),exp_promoting:document.getElementById('exp_promoting').value,exp_hospitality:document.getElementById('exp_hospitality').value,exp_security:document.getElementById('exp_security').value,exp_fiere:document.getElementById('exp_fiere').value,exp_modeling:document.getElementById('exp_modeling').value,cv_url:upD.files.cv_url||'',foto_viso_url:upD.files.foto_viso_url||'',foto_figura_intera_url:upD.files.foto_figura_intera_url||'',privacy_accettata:'Sì',codice_etico_accettato:'Sì',veridicita_accettata:'Sì',foto_check_accettato:'Sì',timestamp:new Date().toISOString()}; const result=await postJSON(finalPayload); if(!result.success)throw new Error(result.message||result.error||'Errore salvataggio candidatura'); showMessage('Candidatura registrata con successo.\nCodice candidatura: '+(result.application_id||appId),'ok'); form.reset(); const eta=document.getElementById('eta'); if(eta)eta.value=''; updatePreview()}catch(err){console.error(err); showMessage(err.message||'Errore durante l invio. Verifica i dati.','err')}finally{if(btn)btn.disabled=false}}});
+
+    function closeOverlay() {
+      const overlay = document.getElementById("overlay");
+      if (overlay) overlay.style.display = "none";
+    }
+
+    function calcAge() {
+      const input = document.getElementById("dataNascita");
+      const eta = document.getElementById("eta");
+      if (!input || !eta || !input.value) {
+        if (eta) eta.value = "";
+        return;
+      }
+      const birth = new Date(input.value);
+      const today = new Date();
+      let age = today.getFullYear() - birth.getFullYear();
+      if (today.getMonth() < birth.getMonth() || (today.getMonth() === birth.getMonth() && today.getDate() < birth.getDate())) age--;
+      eta.value = Number.isNaN(age) ? "" : age;
+    }
+
+    function jobTitle(job) {
+      return job.titolo_annuncio || job.annuncio_titolo || job.ruolo || job.ruolo_richiesta || job.job_code || "Posizione aperta";
+    }
+
+    function jobText(job) {
+      return job.testo_annuncio || job.annuncio_testo || "";
+    }
+
+    function toggleL(selectEl) {
+      const custom = selectEl.parentElement.querySelector(".l-custom");
+      if (!custom) return;
+      custom.style.display = selectEl.value === "Altro" ? "block" : "none";
+      if (selectEl.value !== "Altro") custom.value = "";
+    }
+
+    function addL() {
+      const container = document.getElementById("lingue-container");
+      if (!container) return;
+      const row = document.createElement("div");
+      row.className = "lingua-row";
+      row.innerHTML = `<select class="l-nome" onchange="toggleL(this)" style="flex:1"><option>Inglese</option><option>Francese</option><option>Spagnolo</option><option>Tedesco</option><option>Altro</option></select><input type="text" class="l-custom" placeholder="Specifica lingua" style="display:none;flex:1"><select class="l-liv" style="flex:1"><option>Scolastico</option><option>Medio</option><option>Fluente</option><option>Madrelingua</option></select><button type="button" class="btn small remove" onclick="this.parentElement.remove()">X</button>`;
+      container.appendChild(row);
+    }
+
+    function toggleA(selectEl) {
+      const custom = selectEl.parentElement.querySelector(".a-custom");
+      if (!custom) return;
+      custom.style.display = selectEl.value === "Altro" ? "block" : "none";
+      if (selectEl.value !== "Altro") custom.value = "";
+    }
+
+    function addA() {
+      const container = document.getElementById("attestati-container");
+      if (!container) return;
+      const row = document.createElement("div");
+      row.className = "att-row";
+      row.innerHTML = `<select class="a-nome" onchange="toggleA(this)" style="flex:1"><option>HACCP</option><option>Sicurezza Basso Rischio</option><option>Sicurezza Alto Rischio</option><option>BLSD</option><option>Altro</option></select><input type="text" class="a-custom" placeholder="Specifica attestato" style="display:none;flex:1"><button type="button" class="btn small remove" onclick="this.parentElement.remove()">X</button>`;
+      container.appendChild(row);
+    }
+
+    function updatePreview() {
+      const selected = document.getElementById("jobSelect").value;
+      const job = jobs.find(j => String(j.job_id) === String(selected));
+      const preview = document.getElementById("jobPrev");
+      const prevTitle = document.getElementById("prevTitle");
+      const prevDesc = document.getElementById("prevDesc");
+      const prevReq = document.getElementById("prevReq");
+      const prevDocs = document.getElementById("prevDocs");
+      if (!preview || !prevTitle || !prevDesc || !prevReq || !prevDocs) return;
+      if (!job) {
+        preview.style.display = "none";
+        prevTitle.textContent = "";
+        prevDesc.textContent = "";
+        prevReq.textContent = "";
+        prevDocs.textContent = "";
+        return;
+      }
+      preview.style.display = "block";
+      prevTitle.textContent = jobTitle(job);
+      prevDesc.textContent = jobText(job);
+      prevReq.textContent = job.requisiti_pubblici ? "Requisiti:\n" + job.requisiti_pubblici : "";
+      prevDocs.textContent = job.documenti_richiesti_pubblici ? "Documenti richiesti:\n" + job.documenti_richiesti_pubblici : "";
+    }
+
+    async function toB64(file) {
+      return new Promise((resolve, reject) => {
+        if (!file) return reject(new Error("File mancante"));
+        const reader = new FileReader();
+        reader.onload = () => resolve({ name: file.name, mimeType: file.type, base64: String(reader.result).split(",")[1] });
+        reader.onerror = () => reject(new Error("Errore lettura file"));
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function showMessage(text, type) {
+      const box = document.getElementById("msg");
+      if (!box) return;
+      box.className = "msg " + type;
+      box.textContent = text;
+    }
+
+    async function postJson(payload) {
+      const response = await fetch(API, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(payload)
+      });
+      const text = await response.text();
+      try {
+        return JSON.parse(text);
+      } catch (err) {
+        throw new Error("Risposta backend non JSON: " + text);
+      }
+    }
+
+    async function loadJobs() {
+      const select = document.getElementById("jobSelect");
+      if (!select) return;
+      select.innerHTML = '<option value="">Caricamento posizioni...</option>';
+      try {
+        const response = await fetch(API + "?action=get_open_jobs&ts=" + Date.now(), { cache: "no-store" });
+        const data = await response.json();
+        if (!data.success || !Array.isArray(data.jobs)) throw new Error(data.message || "Risposta job non valida");
+        jobs = data.jobs;
+        if (!jobs.length) {
+          select.innerHTML = '<option value="">Nessuna posizione aperta disponibile</option>';
+          return;
+        }
+        select.innerHTML = '<option value="">Seleziona una posizione...</option>';
+        jobs.forEach(job => {
+          const option = document.createElement("option");
+          option.value = job.job_id;
+          option.textContent = jobTitle(job);
+          select.appendChild(option);
+        });
+      } catch (error) {
+        console.error("Errore caricamento job:", error);
+        select.innerHTML = '<option value="">Errore caricamento posizioni</option>';
+        showMessage("Errore caricamento posizioni: " + (error.message || error), "err");
+      }
+    }
+
+    function buildLingue() {
+      return Array.from(document.querySelectorAll(".lingua-row")).map(row => {
+        const nome = row.querySelector(".l-nome")?.value || "";
+        const custom = row.querySelector(".l-custom")?.value.trim() || "";
+        const livello = row.querySelector(".l-liv")?.value || "";
+        const lingua = nome === "Altro" ? custom : nome;
+        return lingua ? `${lingua} (${livello})` : null;
+      }).filter(Boolean).join(", ");
+    }
+
+    function buildAttestati() {
+      return Array.from(document.querySelectorAll(".att-row")).map(row => {
+        const nome = row.querySelector(".a-nome")?.value || "";
+        const custom = row.querySelector(".a-custom")?.value.trim() || "";
+        return nome === "Altro" ? custom : nome;
+      }).filter(Boolean).join(", ");
+    }
+
+    function buildEsperienzeText() {
+      return [
+        "Promoter: " + document.getElementById("exp_promoting").value,
+        "Hospitality: " + document.getElementById("exp_hospitality").value,
+        "Security: " + document.getElementById("exp_security").value,
+        "Event/Fiere: " + document.getElementById("exp_fiere").value,
+        "Modeling: " + document.getElementById("exp_modeling").value
+      ].join(" | ");
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      loadJobs();
+      const form = document.getElementById("candidateForm");
+      if (!form) return;
+      form.onsubmit = async e => {
+        e.preventDefault();
+        const btn = document.getElementById("subBtn");
+        if (btn) btn.disabled = true;
+        showMessage("Invio in corso...", "loading");
+        try {
+          const appId = "APP_" + Date.now();
+          const jobId = document.getElementById("jobSelect").value;
+          const selectedJob = jobs.find(j => String(j.job_id) === String(jobId)) || {};
+          const cvFile = document.getElementById("cvFile").files[0];
+          const fotoVisoFile = document.getElementById("fotoVisoFile").files[0];
+          const fotoFiguraInteraFile = document.getElementById("fotoFiguraInteraFile").files[0];
+          const uploadResult = await postJson({
+            action: "upload_candidate_files",
+            application_id: appId,
+            cv_file: await toB64(cvFile),
+            foto_viso_file: await toB64(fotoVisoFile),
+            foto_figura_intera_file: await toB64(fotoFiguraInteraFile)
+          });
+          if (!uploadResult.success || !uploadResult.files) throw new Error(uploadResult.message || uploadResult.error || "Errore upload file");
+          const lingue = buildLingue();
+          const attestati = buildAttestati();
+          const result = await postJson({
+            action: "create_candidate",
+            application_id: appId,
+            job_id: jobId,
+            job_code: selectedJob.job_code || "",
+            cliente: selectedJob.cliente || "",
+            progetto: selectedJob.progetto || "",
+            ruolo: selectedJob.ruolo || selectedJob.ruolo_richiesta || "",
+            ruolo_richiesta: selectedJob.ruolo_richiesta || selectedJob.ruolo || "",
+            nome: document.getElementById("nome").value.trim(),
+            cognome: document.getElementById("cognome").value.trim(),
+            email: document.getElementById("email").value.trim(),
+            telefono: document.getElementById("telefono").value.trim(),
+            citta: document.getElementById("citta").value.trim(),
+            altezza: document.getElementById("altezza").value,
+            data_nascita: document.getElementById("dataNascita").value,
+            eta: document.getElementById("eta").value,
+            titolo_studio: document.getElementById("titolo_studio").value,
+            regime_fiscale: document.getElementById("regime_fiscale").value,
+            automunito: document.getElementById("automunito").value,
+            patente: document.getElementById("patente").value,
+            disponibilita_weekend: document.getElementById("disponibilita_weekend").value,
+            lingue: lingue,
+            attestati: attestati,
+            certificazioni: attestati,
+            esperienza_sicurezza: attestati || "Nessuna",
+            esperienze_lavorative: buildEsperienzeText(),
+            exp_promoting: document.getElementById("exp_promoting").value,
+            exp_hospitality: document.getElementById("exp_hospitality").value,
+            exp_security: document.getElementById("exp_security").value,
+            exp_fiere: document.getElementById("exp_fiere").value,
+            exp_modeling: document.getElementById("exp_modeling").value,
+            cv_url: uploadResult.files.cv_url || "",
+            foto_viso_url: uploadResult.files.foto_viso_url || "",
+            foto_figura_intera_url: uploadResult.files.foto_figura_intera_url || "",
+            privacy_accettata: "Sì",
+            codice_etico_accettato: "Sì",
+            veridicita_accettata: "Sì",
+            foto_check_accettato: "Sì",
+            timestamp: new Date().toISOString()
+          });
+          if (!result.success) throw new Error(result.message || result.error || "Errore salvataggio candidatura");
+          showMessage("Candidatura registrata con successo. Controlla la mail per il codice candidatura.", "ok");
+          form.reset();
+          const eta = document.getElementById("eta");
+          if (eta) eta.value = "";
+          document.getElementById("jobPrev").style.display = "none";
+        } catch (err) {
+          console.error(err);
+          showMessage(err.message || "Errore durante l'invio. Verifica i dati.", "err");
+        } finally {
+          if (btn) btn.disabled = false;
+        }
+      };
+    });
   </script>
 </body>
 </html>
